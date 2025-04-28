@@ -21,4 +21,3 @@ export default function PageScrollBehavior({ children }: { children: React.React
     </>
   )
 }
-

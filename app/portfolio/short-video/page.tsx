@@ -351,4 +351,3 @@ export default function ShortVideoPage() {
     </main>
   )
 }
-

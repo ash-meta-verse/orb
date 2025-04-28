@@ -1,8 +1,13 @@
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Check, HelpCircle } from "lucide-react"
 
 export default function PricingPage() {
+  const [isMonthly, setIsMonthly] = useState(false)
+
   return (
     <main className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -25,11 +30,31 @@ export default function PricingPage() {
       <section className="container mx-auto px-4 py-8">
         <div className="max-w-5xl mx-auto">
           <div className="flex justify-center items-center mb-12">
-            <span className="text-lg font-medium mr-4">Monthly</span>
-            <div className="relative inline-block w-16 h-8 rounded-full bg-primary/20">
-              <div className="absolute left-1 top-1 w-6 h-6 rounded-full bg-primary transition-transform"></div>
-            </div>
-            <span className="text-lg font-medium ml-4">One-time</span>
+            <span
+              className={`text-lg font-medium mr-4 transition-colors duration-300 ${isMonthly ? "text-foreground" : "text-muted-foreground"}`}
+            >
+              Monthly
+            </span>
+            <button
+              onClick={() => setIsMonthly(!isMonthly)}
+              className={`relative inline-block w-16 h-8 rounded-full cursor-pointer transition-colors duration-300 ${
+                isMonthly ? "bg-primary/80" : "bg-primary/20"
+              }`}
+              aria-pressed={isMonthly}
+              role="switch"
+              aria-label="Toggle pricing"
+            >
+              <div
+                className={`absolute top-1 w-6 h-6 rounded-full bg-white transition-transform duration-300 ${
+                  isMonthly ? "left-1" : "left-9"
+                }`}
+              ></div>
+            </button>
+            <span
+              className={`text-lg font-medium ml-4 transition-colors duration-300 ${!isMonthly ? "text-foreground" : "text-muted-foreground"}`}
+            >
+              Yearly
+            </span>
           </div>
 
           {/* Pricing Tiers */}
@@ -38,7 +63,9 @@ export default function PricingPage() {
               {
                 name: "Starter",
                 description: "Perfect for businesses just beginning to leverage video in their marketing strategy.",
-                price: "$2,500",
+                monthlyDescription: "Flexible monthly plan with no long-term commitment.",
+                yearlyDescription: "Save 20% with our annual plan for consistent video content.",
+                price: "$15,000",
                 monthlyPrice: "$1,500",
                 features: [
                   "1 premium video per month",
@@ -53,7 +80,9 @@ export default function PricingPage() {
                 name: "Professional",
                 description:
                   "Comprehensive package for businesses ready to fully integrate video into their marketing.",
-                price: "$5,000",
+                monthlyDescription: "Our most popular monthly option for growing businesses.",
+                yearlyDescription: "Our best value annual plan with priority service and extra benefits.",
+                price: "$35,000",
                 monthlyPrice: "$3,500",
                 features: [
                   "2 premium videos per month",
@@ -70,7 +99,9 @@ export default function PricingPage() {
               {
                 name: "Enterprise",
                 description: "All-inclusive package for businesses with extensive video content needs.",
-                price: "$10,000+",
+                monthlyDescription: "Comprehensive monthly solution for enterprise-level video needs.",
+                yearlyDescription: "Maximum savings and benefits with our premium annual enterprise plan.",
+                price: "$75,000+",
                 monthlyPrice: "$7,500+",
                 features: [
                   "4+ premium videos per month",
@@ -96,14 +127,60 @@ export default function PricingPage() {
                   </div>
                 )}
                 <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
-                <p className="text-muted-foreground mb-6">{tier.description}</p>
+                <p className="text-muted-foreground mb-4">{tier.description}</p>
 
-                <div className="mb-6">
-                  <p className="text-3xl font-bold">
-                    {tier.monthlyPrice}
-                    <span className="text-sm font-normal text-muted-foreground">/month</span>
-                  </p>
-                  <p className="text-sm text-muted-foreground">or {tier.price} one-time payment</p>
+                {/* Plan-specific description */}
+                <p
+                  className={`text-sm text-muted-foreground mb-6 transition-all duration-500 ${isMonthly ? "opacity-100" : "opacity-0 absolute"}`}
+                >
+                  {tier.monthlyDescription}
+                </p>
+                <p
+                  className={`text-sm text-muted-foreground mb-6 transition-all duration-500 ${!isMonthly ? "opacity-100" : "opacity-0 absolute"}`}
+                >
+                  {tier.yearlyDescription}
+                </p>
+
+                <div className="mb-6 h-24">
+                  <div className="h-12 relative">
+                    {/* Monthly price */}
+                    <div
+                      className={`transition-all duration-500 absolute inset-0 ${
+                        isMonthly ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+                      }`}
+                    >
+                      <p className="text-3xl font-bold">
+                        {tier.monthlyPrice}
+                        <span className="text-sm font-normal text-muted-foreground">/month</span>
+                      </p>
+                    </div>
+
+                    {/* Yearly price */}
+                    <div
+                      className={`transition-all duration-500 absolute inset-0 ${
+                        !isMonthly ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
+                      }`}
+                    >
+                      <p className="text-3xl font-bold">
+                        {tier.price}
+                        <span className="text-sm font-normal text-muted-foreground">/year</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Secondary price option */}
+                  <div className="mt-4">
+                    {isMonthly && (
+                      <p className="text-sm text-muted-foreground transition-all duration-500 opacity-100">
+                        or {tier.price}/year (save 20%)
+                      </p>
+                    )}
+                    {!isMonthly && (
+                      <p className="text-sm text-muted-foreground transition-all duration-500 opacity-100">
+                        or {tier.monthlyPrice}/month
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <h4 className="font-semibold mb-3">What's included:</h4>
@@ -290,14 +367,14 @@ export default function PricingPage() {
           <div className="max-w-3xl mx-auto space-y-6">
             {[
               {
-                question: "Why should I choose a monthly package instead of one-time production?",
+                question: "Why should I choose a yearly package instead of monthly?",
                 answer:
-                  "Monthly packages offer several advantages: consistent content delivery, cost savings compared to individual productions, ongoing strategy refinement, and the ability to build a cohesive video library over time. They're ideal for businesses committed to making video a core part of their marketing strategy.",
+                  "Yearly packages offer several advantages: significant cost savings (20% off monthly rates), consistent content delivery, priority service, and the ability to build a cohesive video library over time. They're ideal for businesses committed to making video a core part of their marketing strategy.",
               },
               {
                 question: "What happens if I need to make changes after the revision rounds?",
                 answer:
-                  "We strive to get your content right within the included revision rounds. If additional revisions are needed, we offer them at an hourly rate. For clients on monthly packages, we're often more flexible with revisions as part of our ongoing relationship.",
+                  "We strive to get your content right within the included revision rounds. If additional revisions are needed, we offer them at an hourly rate. For clients on yearly packages, we're often more flexible with revisions as part of our ongoing relationship.",
               },
               {
                 question: "Do you offer discounts for non-profits or educational institutions?",
@@ -310,9 +387,9 @@ export default function PricingPage() {
                   "Absolutely. Our packages are designed to grow with your business. You can upgrade at any time, and downgrade with 30 days' notice. We'll work with you to ensure your package aligns with your current needs and budget.",
               },
               {
-                question: "What's your payment structure for monthly packages?",
+                question: "What's your payment structure for yearly packages?",
                 answer:
-                  "Monthly packages are billed at the beginning of each month. We require a 3-month minimum commitment for monthly packages to ensure we can develop a consistent strategy and production workflow.",
+                  "Yearly packages can be paid in full upfront for maximum savings, or we offer quarterly payment plans. Monthly packages are billed at the beginning of each month with a 3-month minimum commitment.",
               },
               {
                 question: "Do you offer rush delivery for time-sensitive projects?",
@@ -363,4 +440,3 @@ export default function PricingPage() {
     </main>
   )
 }
-

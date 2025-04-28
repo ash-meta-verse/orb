@@ -9,4 +9,3 @@ export default function OurStoryLayout({ children }: { children: ReactNode }) {
     </>
   )
 }
-

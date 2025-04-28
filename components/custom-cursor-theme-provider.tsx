@@ -37,4 +37,3 @@ export function CursorThemeProvider({ children }: { children: ReactNode }) {
 
   return <CursorThemeContext.Provider value={{ theme, setTheme }}>{children}</CursorThemeContext.Provider>
 }
-

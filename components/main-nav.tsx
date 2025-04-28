@@ -66,7 +66,7 @@ export default function MainNav() {
             <div className="relative h-9 w-9 rounded-full bg-primary flex items-center justify-center">
               <Film className="h-5 w-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-white">FrameStory</span>
+            <span className="text-xl font-bold text-white">Ash Agency</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -185,4 +185,3 @@ export default function MainNav() {
     </nav>
   )
 }
-

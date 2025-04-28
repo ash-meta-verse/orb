@@ -140,7 +140,7 @@ export default function HomePage() {
       {/* Why Choose Us */}
       <AnimatedSection variant="fadeInUp" className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl font-bold mb-6">Why Choose FrameStory?</h2>
+          <h2 className="text-3xl font-bold mb-6">Why Choose Ash Agency?</h2>
           <p className="text-muted-foreground text-lg">
             We deliver exceptional quality, fast turnaround times, and measurable results for our clients.
           </p>
@@ -385,4 +385,3 @@ export default function HomePage() {
     </main>
   )
 }
-
