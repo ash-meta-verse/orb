@@ -45,7 +45,7 @@ export default function Navbar() {
       >
         <div className="container flex h-14 max-w-screen-2xl items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2 transition-transform duration-300 hover:scale-105">
-            <span className="font-bold text-primary">Ash Agency</span>
+            <span className="font-bold text-primary">FrameStory</span>
           </Link>
 
           {/* Mobile menu button */}
@@ -175,7 +175,7 @@ export default function Navbar() {
         <div className="flex flex-col h-full p-6 overflow-y-auto">
           <div className="flex items-center justify-between mb-8">
             <Link href="/" className="font-bold text-primary text-xl" onClick={() => setMobileMenuOpen(false)}>
-              Ash Agency
+              FrameStory
             </Link>
             <button
               className="p-2 rounded-md text-primary hover:bg-primary/10 transition-colors"

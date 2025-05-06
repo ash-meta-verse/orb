@@ -6,7 +6,6 @@ import Navbar from "@/components/navbar"
 import { CursorThemeProvider } from "@/components/custom-cursor-theme-provider"
 import MouseMoveEffect from "@/components/mouse-move-effect"
 import CustomCursor from "@/components/custom-cursor"
-import PageScrollBehavior from "@/components/page-scroll-behavior"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark cursor-none">
+    <html lang="en" className="dark">
       <body className={`${inter.className} bg-background text-foreground antialiased`}>
         <CursorThemeProvider>
           <div className="relative min-h-screen">
@@ -37,10 +36,8 @@ export default function RootLayout({
               {/* Navbar will appear on all pages */}
               <Navbar />
 
-              {/* Page content with scroll behavior */}
-              <PageScrollBehavior>
-                <main>{children}</main>
-              </PageScrollBehavior>
+              {/* Page content */}
+              <main>{children}</main>
             </div>
           </div>
 

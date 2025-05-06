@@ -7,23 +7,19 @@ export default function MouseMoveEffect() {
   const [cursorSize, setCursorSize] = useState(600)
   const [isHovering, setIsHovering] = useState(false)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
-  const [effectEnabled, setEffectEnabled] = useState(true)
 
   useEffect(() => {
     // Check if it's a touch device
     const checkTouchDevice = () => {
       const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
+
       setIsTouchDevice(isTouchDevice)
     }
 
-    // Get saved effect state
-    const savedEffectState = localStorage.getItem("cursor-effect-enabled")
-    setEffectEnabled(savedEffectState === null ? true : savedEffectState === "true")
-
     checkTouchDevice()
 
-    // Don't set up mouse events on touch devices or if effect is disabled
-    if (isTouchDevice || savedEffectState === "false") return
+    // Don't set up mouse events on touch devices
+    if (isTouchDevice) return
 
     const handleMouseMove = (event: MouseEvent) => {
       setMousePosition({ x: event.clientX, y: event.clientY })
@@ -48,25 +44,17 @@ export default function MouseMoveEffect() {
       }
     }
 
-    // Listen for effect state changes
-    const handleStorageChange = () => {
-      const newEffectState = localStorage.getItem("cursor-effect-enabled")
-      setEffectEnabled(newEffectState === null ? true : newEffectState === "true")
-    }
-
     window.addEventListener("mousemove", handleMouseMove)
     document.addEventListener("mouseover", handleMouseOver)
-    window.addEventListener("storage", handleStorageChange)
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
       document.removeEventListener("mouseover", handleMouseOver)
-      window.removeEventListener("storage", handleStorageChange)
     }
   }, [isTouchDevice])
 
-  // Don't render the effect on touch devices or if effect is disabled
-  if (isTouchDevice || !effectEnabled) return null
+  // Don't render the effect on touch devices
+  if (isTouchDevice) return null
 
   return (
     <div

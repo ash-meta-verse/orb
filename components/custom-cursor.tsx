@@ -9,28 +9,19 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
-  const [cursorType, setCursorType] = useState("custom")
-  const [effectEnabled, setEffectEnabled] = useState(true)
 
   useEffect(() => {
     // Check if it's a touch device
     const checkTouchDevice = () => {
       const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
+
       setIsTouchDevice(isTouchDevice)
     }
 
-    // Get saved cursor type
-    const savedType = localStorage.getItem("cursor-type") || "custom"
-    setCursorType(savedType)
-
-    // Get saved effect state
-    const savedEffectState = localStorage.getItem("cursor-effect-enabled")
-    setEffectEnabled(savedEffectState === null ? true : savedEffectState === "true")
-
     checkTouchDevice()
 
-    // Don't set up mouse events on touch devices or if using default cursor
-    if (isTouchDevice || savedType !== "custom") return
+    // Don't set up mouse events on touch devices
+    if (isTouchDevice) return
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY })
@@ -61,22 +52,12 @@ export default function CustomCursor() {
     const handleMouseEnter = () => setIsVisible(true)
     const handleMouseLeave = () => setIsVisible(false)
 
-    // Listen for cursor type changes
-    const handleStorageChange = () => {
-      const newType = localStorage.getItem("cursor-type") || "custom"
-      setCursorType(newType)
-
-      const newEffectState = localStorage.getItem("cursor-effect-enabled")
-      setEffectEnabled(newEffectState === null ? true : newEffectState === "true")
-    }
-
     document.addEventListener("mousemove", handleMouseMove)
     document.addEventListener("mouseover", handleMouseOver)
     document.addEventListener("mousedown", handleMouseDown)
     document.addEventListener("mouseup", handleMouseUp)
     document.addEventListener("mouseenter", handleMouseEnter)
     document.addEventListener("mouseleave", handleMouseLeave)
-    window.addEventListener("storage", handleStorageChange)
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove)
@@ -85,12 +66,11 @@ export default function CustomCursor() {
       document.removeEventListener("mouseup", handleMouseUp)
       document.removeEventListener("mouseenter", handleMouseEnter)
       document.removeEventListener("mouseleave", handleMouseLeave)
-      window.removeEventListener("storage", handleStorageChange)
     }
   }, [isTouchDevice])
 
-  // Don't render the custom cursor on touch devices or if using default cursor
-  if (typeof window === "undefined" || isTouchDevice || cursorType !== "custom") return null
+  // Don't render the custom cursor on touch devices
+  if (typeof window === "undefined" || isTouchDevice) return null
 
   return (
     <>

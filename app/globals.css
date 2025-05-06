@@ -62,37 +62,22 @@
     @apply border-border;
   }
 
-  /* Hide default cursor for the entire page when custom cursor is enabled */
-  .cursor-none {
-    cursor: none;
+  /* Hide default cursor for the entire page */
+  html,
+  body {
+    @apply cursor-none;
   }
 
-  /* Hide default cursor on all interactive elements when custom cursor is enabled */
-  .cursor-none a,
-  .cursor-none button,
-  .cursor-none input,
-  .cursor-none textarea,
-  .cursor-none select,
-  .cursor-none .interactive,
-  .cursor-none [role="button"],
-  .cursor-none [tabindex="0"] {
-    cursor: none;
-  }
-
-  /* Show default cursor when custom cursor is disabled */
-  .cursor-default {
-    cursor: default;
-  }
-
-  .cursor-default a,
-  .cursor-default button,
-  .cursor-default input,
-  .cursor-default textarea,
-  .cursor-default select,
-  .cursor-default .interactive,
-  .cursor-default [role="button"],
-  .cursor-default [tabindex="0"] {
-    cursor: pointer;
+  /* Hide default cursor on all interactive elements */
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  .interactive,
+  [role="button"],
+  [tabindex="0"] {
+    @apply cursor-none;
   }
 
   /* Disable custom cursor for touch devices */
@@ -146,70 +131,6 @@
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-/* Add these animation keyframes after the existing animations */
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -244,29 +165,4 @@
     transform: scale(2.5);
     opacity: 0;
   }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 1s ease forwards;
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 1s ease forwards;
-}
-
-.animate-fadeInLeft {
-  animation: fadeInLeft 1s ease forwards;
-}
-
-.animate-fadeInRight {
-  animation: fadeInRight 1s ease forwards;
-}
-
-.animate-zoomIn {
-  animation: zoomIn 1s ease forwards;
-}
-
-/* Hide mouse move effect when disabled */
-.effect-disabled .pointer-events-none.fixed.inset-0.z-30.transition-opacity.duration-300.custom-cursor {
-  display: none !important;
 }
