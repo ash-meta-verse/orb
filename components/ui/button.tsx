@@ -39,18 +39,25 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? "a" : "button"
     const [cursorTheme, setCursorTheme] = useState<string | null>(null)
+    const [isSystemCursor, setIsSystemCursor] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
 
     useEffect(() => {
+      setIsMounted(true)
+
       // Get the current cursor theme from localStorage when component mounts
       if (typeof window !== "undefined") {
         const savedTheme = localStorage.getItem("cursor-theme") || "default"
         setCursorTheme(savedTheme)
+
+        // Check if system cursor is enabled
+        setIsSystemCursor(document.documentElement.classList.contains("use-system-cursor"))
       }
     }, [])
 
     const handleMouseEnter = (e: React.MouseEvent) => {
       // Apply hover effect for cursor
-      if (typeof document !== "undefined" && !document.documentElement.classList.contains("use-system-cursor")) {
+      if (isMounted && typeof document !== "undefined" && !isSystemCursor) {
         document.dispatchEvent(new CustomEvent("cursor-hover", { detail: { element: e.currentTarget } }))
       }
 
@@ -62,7 +69,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const handleMouseLeave = (e: React.MouseEvent) => {
       // Remove hover effect for cursor
-      if (typeof document !== "undefined" && !document.documentElement.classList.contains("use-system-cursor")) {
+      if (isMounted && typeof document !== "undefined" && !isSystemCursor) {
         document.dispatchEvent(new CustomEvent("cursor-leave"))
       }
 
@@ -77,7 +84,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           buttonVariants({ variant, size, className }),
           "inline-flex items-center justify-center",
-          !document?.documentElement.classList.contains("use-system-cursor") && "cursor-none",
+          isMounted && !isSystemCursor && "cursor-none",
         )}
         ref={ref}
         data-cursor-hover={cursorTheme !== "system"}

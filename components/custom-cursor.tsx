@@ -9,19 +9,25 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
   const [isTouchDevice, setIsTouchDevice] = useState(false)
+  const [isSystemCursor, setIsSystemCursor] = useState(false)
 
   useEffect(() => {
     // Check if it's a touch device
     const checkTouchDevice = () => {
       const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
-
       setIsTouchDevice(isTouchDevice)
     }
 
+    // Check if system cursor is enabled
+    const checkSystemCursor = () => {
+      setIsSystemCursor(document.documentElement.classList.contains("use-system-cursor"))
+    }
+
     checkTouchDevice()
+    checkSystemCursor()
 
     // Don't set up mouse events on touch devices or when using system cursor
-    if (isTouchDevice || document.documentElement.classList.contains("use-system-cursor")) return
+    if (isTouchDevice || isSystemCursor) return
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY })
@@ -67,15 +73,10 @@ export default function CustomCursor() {
       document.removeEventListener("mouseenter", handleMouseEnter)
       document.removeEventListener("mouseleave", handleMouseLeave)
     }
-  }, [isTouchDevice])
+  }, [isTouchDevice, isSystemCursor])
 
-  // Update the return statement to check for system cursor
-  if (
-    typeof window === "undefined" ||
-    isTouchDevice ||
-    document.documentElement.classList.contains("use-system-cursor")
-  )
-    return null
+  // Don't render anything if we're on the server, on a touch device, or using system cursor
+  if (typeof window === "undefined" || isTouchDevice || isSystemCursor) return null
 
   return (
     <>

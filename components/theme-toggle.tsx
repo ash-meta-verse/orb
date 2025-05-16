@@ -46,10 +46,13 @@ const CURSOR_THEMES = {
 export default function ThemeToggle() {
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [cursorTheme, setCursorTheme] = useState("default")
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
+
     // Check if document is available (client-side)
-    if (typeof document !== "undefined") {
+    if (typeof window !== "undefined") {
       // Set initial state based on class
       setIsDarkMode(document.documentElement.classList.contains("dark"))
 
@@ -61,6 +64,8 @@ export default function ThemeToggle() {
   }, [])
 
   const toggleTheme = () => {
+    if (!isMounted) return
+
     if (isDarkMode) {
       document.documentElement.classList.remove("dark")
       setIsDarkMode(false)
@@ -71,6 +76,8 @@ export default function ThemeToggle() {
   }
 
   const applyCursorTheme = (theme: string) => {
+    if (!isMounted || typeof document === "undefined") return
+
     const themeData = CURSOR_THEMES[theme as keyof typeof CURSOR_THEMES] || CURSOR_THEMES.default
 
     if (themeData.isSystem) {
