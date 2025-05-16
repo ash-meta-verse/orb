@@ -1,6 +1,8 @@
+"use client"
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-
+import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
@@ -36,10 +38,51 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? "a" : "button"
+    const [cursorTheme, setCursorTheme] = useState<string | null>(null)
+
+    useEffect(() => {
+      // Get the current cursor theme from localStorage when component mounts
+      if (typeof window !== "undefined") {
+        const savedTheme = localStorage.getItem("cursor-theme") || "default"
+        setCursorTheme(savedTheme)
+      }
+    }, [])
+
+    const handleMouseEnter = (e: React.MouseEvent) => {
+      // Apply hover effect for cursor
+      if (typeof document !== "undefined" && !document.documentElement.classList.contains("use-system-cursor")) {
+        document.dispatchEvent(new CustomEvent("cursor-hover", { detail: { element: e.currentTarget } }))
+      }
+
+      // Call the original onMouseEnter if it exists
+      if (props.onMouseEnter) {
+        props.onMouseEnter(e)
+      }
+    }
+
+    const handleMouseLeave = (e: React.MouseEvent) => {
+      // Remove hover effect for cursor
+      if (typeof document !== "undefined" && !document.documentElement.classList.contains("use-system-cursor")) {
+        document.dispatchEvent(new CustomEvent("cursor-leave"))
+      }
+
+      // Call the original onMouseLeave if it exists
+      if (props.onMouseLeave) {
+        props.onMouseLeave(e)
+      }
+    }
+
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }), "inline-flex items-center justify-center")}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          "inline-flex items-center justify-center",
+          !document?.documentElement.classList.contains("use-system-cursor") && "cursor-none",
+        )}
         ref={ref}
+        data-cursor-hover={cursorTheme !== "system"}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         {...props}
       />
     )

@@ -226,9 +226,10 @@ export default function OurStoryPage() {
               description: "Received industry recognition with three major awards for our client campaigns.",
             },
             {
-              year: "2023",
-              title: "International Expansion",
-              description: "Opened our first international office and began serving clients across three continents.",
+              year: "2025",
+              title: "Global Presence",
+              description:
+                "Expanded to five international offices with a network of creative partners across all major continents.",
             },
           ].map((milestone, index) => (
             <div key={index} className="relative">

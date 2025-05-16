@@ -19,10 +19,17 @@ const CURSOR_THEMES = {
     dotColor: "255, 255, 255",
     hoverColor: "59, 130, 246",
   },
+  system: {
+    name: "System Cursor",
+    dotColor: "0, 0, 0", // Not used when system cursor is active
+    hoverColor: "0, 0, 0", // Not used when system cursor is active
+    isSystem: true,
+  },
   neon: {
     name: "Neon",
     dotColor: "0, 255, 170",
     hoverColor: "255, 0, 170",
+    hasToggle: true,
   },
   minimal: {
     name: "Minimal",
@@ -66,9 +73,17 @@ export default function ThemeToggle() {
   const applyCursorTheme = (theme: string) => {
     const themeData = CURSOR_THEMES[theme as keyof typeof CURSOR_THEMES] || CURSOR_THEMES.default
 
-    // Set CSS variables for the cursor theme
-    document.documentElement.style.setProperty("--cursor-color", themeData.dotColor)
-    document.documentElement.style.setProperty("--cursor-hover-color", themeData.hoverColor)
+    if (themeData.isSystem) {
+      // Remove custom cursor styles and use system cursor
+      document.documentElement.classList.add("use-system-cursor")
+    } else {
+      // Use custom cursor
+      document.documentElement.classList.remove("use-system-cursor")
+
+      // Set CSS variables for the cursor theme
+      document.documentElement.style.setProperty("--cursor-color", themeData.dotColor)
+      document.documentElement.style.setProperty("--cursor-hover-color", themeData.hoverColor)
+    }
 
     // Save theme preference
     localStorage.setItem("cursor-theme", theme)
@@ -101,15 +116,42 @@ export default function ThemeToggle() {
               className={cursorTheme === key ? "bg-accent text-accent-foreground" : ""}
               onClick={() => changeCursorTheme(key)}
             >
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-3 h-3 rounded-full"
-                  style={{
-                    backgroundColor: `rgb(${theme.dotColor})`,
-                    boxShadow: `0 0 5px rgba(${theme.dotColor}, 0.7)`,
-                  }}
-                />
-                {theme.name}
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center gap-2">
+                  {theme.isSystem ? (
+                    <MousePointer className="h-3 w-3" />
+                  ) : (
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{
+                        backgroundColor: `rgb(${theme.dotColor})`,
+                        boxShadow: `0 0 5px rgba(${theme.dotColor}, 0.7)`,
+                      }}
+                    />
+                  )}
+                  {theme.name}
+                </div>
+                {theme.hasToggle && (
+                  <div
+                    className={`ml-2 w-8 h-4 rounded-full relative transition-colors ${
+                      cursorTheme === key ? "bg-primary" : "bg-gray-300 dark:bg-gray-600"
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      if (cursorTheme === key) {
+                        changeCursorTheme("default")
+                      } else {
+                        changeCursorTheme(key)
+                      }
+                    }}
+                  >
+                    <div
+                      className={`absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white transition-transform ${
+                        cursorTheme === key ? "translate-x-4" : "translate-x-0"
+                      }`}
+                    />
+                  </div>
+                )}
               </div>
             </DropdownMenuItem>
           ))}

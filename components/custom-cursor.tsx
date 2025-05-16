@@ -20,8 +20,8 @@ export default function CustomCursor() {
 
     checkTouchDevice()
 
-    // Don't set up mouse events on touch devices
-    if (isTouchDevice) return
+    // Don't set up mouse events on touch devices or when using system cursor
+    if (isTouchDevice || document.documentElement.classList.contains("use-system-cursor")) return
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY })
@@ -69,8 +69,13 @@ export default function CustomCursor() {
     }
   }, [isTouchDevice])
 
-  // Don't render the custom cursor on touch devices
-  if (typeof window === "undefined" || isTouchDevice) return null
+  // Update the return statement to check for system cursor
+  if (
+    typeof window === "undefined" ||
+    isTouchDevice ||
+    document.documentElement.classList.contains("use-system-cursor")
+  )
+    return null
 
   return (
     <>

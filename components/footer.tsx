@@ -6,8 +6,10 @@ export default function Footer() {
     <footer className="border-t">
       <div className="container flex flex-col gap-8 py-8 md:flex-row md:py-12">
         <div className="flex-1 space-y-4">
-          <h2 className="font-bold">Amane Soft</h2>
-          <p className="text-sm text-muted-foreground">Pioneering software solutions for the digital age.</p>
+          <h3 className="text-lg font-bold mb-4">Ash Agency</h3>
+          <p className="text-muted-foreground mb-4">
+            Premium video production and social media management tailored for creators, agencies, and entrepreneurs.
+          </p>
         </div>
         <div className="grid flex-1 grid-cols-2 gap-12 sm:grid-cols-3">
           <div className="space-y-4">
@@ -69,9 +71,9 @@ export default function Footer() {
         </div>
       </div>
       <div className="container border-t py-6">
-        <p className="text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Amane Soft, Inc. All rights reserved.
-        </p>
+        <div className="text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()} Ash Agency. All rights reserved.
+        </div>
       </div>
     </footer>
   )

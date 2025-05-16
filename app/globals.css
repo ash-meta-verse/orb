@@ -118,6 +118,24 @@
   }
 }
 
+/* Add styles for system cursor */
+.use-system-cursor * {
+  cursor: auto !important;
+}
+
+.use-system-cursor a,
+.use-system-cursor button,
+.use-system-cursor [role="button"],
+.use-system-cursor .interactive {
+  cursor: pointer !important;
+}
+
+.use-system-cursor input,
+.use-system-cursor textarea,
+.use-system-cursor select {
+  cursor: text !important;
+}
+
 /* Animations */
 @keyframes float {
   0% {

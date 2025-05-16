@@ -18,6 +18,14 @@ export default function SolutionsPage() {
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
             Tailored video production and social media strategies for different audiences and needs.
           </p>
+
+          {/* Updated link to the solutions selector page */}
+          <Link href="/solutions/selector">
+            <Button size="lg" className="group">
+              Find Your Solution
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
       </section>
 

@@ -44,8 +44,8 @@ export default function Navbar() {
         } ${visible ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div className="container flex h-14 max-w-screen-2xl items-center">
-          <Link href="/" className="mr-6 flex items-center space-x-2 transition-transform duration-300 hover:scale-105">
-            <span className="font-bold text-primary">FrameStory</span>
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="text-sm font-medium mr-4">Ash Agency</span>
           </Link>
 
           {/* Mobile menu button */}
@@ -88,6 +88,13 @@ export default function Navbar() {
               </button>
               <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-background border border-border/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                 <div className="py-1">
+                  <Link
+                    href="/solutions/selector"
+                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground font-medium text-primary"
+                  >
+                    Find Your Solution
+                  </Link>
+                  <div className="h-px bg-border/50 my-1 mx-2"></div>
                   <Link
                     href="/solutions/agencies-brands"
                     className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
@@ -174,8 +181,8 @@ export default function Navbar() {
       >
         <div className="flex flex-col h-full p-6 overflow-y-auto">
           <div className="flex items-center justify-between mb-8">
-            <Link href="/" className="font-bold text-primary text-xl" onClick={() => setMobileMenuOpen(false)}>
-              FrameStory
+            <Link href="/" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
+              Ash Agency
             </Link>
             <button
               className="p-2 rounded-md text-primary hover:bg-primary/10 transition-colors"
@@ -222,6 +229,14 @@ export default function Navbar() {
                   </svg>
                 </summary>
                 <div className="mt-2 ml-4 flex flex-col space-y-2">
+                  <Link
+                    href="/solutions/selector"
+                    className="py-2 text-primary font-medium hover:text-primary transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Find Your Solution
+                  </Link>
+                  <div className="h-px bg-border/30 my-1"></div>
                   <Link
                     href="/solutions/agencies-brands"
                     className="py-2 hover:text-primary transition-colors"
