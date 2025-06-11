@@ -78,24 +78,7 @@ export default function Navbar() {
                   >
                     Find Your Solution
                   </Link>
-                  <Link
-                    href="/solutions/agencies-brands"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 hover:text-primary dark:hover:text-primary transition-colors"
-                  >
-                    For Agencies
-                  </Link>
-                  <Link
-                    href="/solutions/creators"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 hover:text-primary dark:hover:text-primary transition-colors"
-                  >
-                    For Creators
-                  </Link>
-                  <Link
-                    href="/solutions/entrepreneurs"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 hover:text-primary dark:hover:text-primary transition-colors"
-                  >
-                    For Entrepreneurs
-                  </Link>
+                  
                 </div>
               </div>
             </div>
