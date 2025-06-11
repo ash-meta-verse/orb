@@ -246,14 +246,18 @@ export default function Portfolio() {
               <p className="text-lg opacity-90">Ready to grow your brand?</p>
             </div>
 
-            <div className="space-y-6">
-              <Button
-                size="lg"
-                className="bg-white text-blue-600 hover:bg-gray-100 font-bold px-8 py-4 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-              >
-                Book a Free 15-min Strategy Call
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+          <div className="space-y-6">
+  <a href="https://ash-agency.com/book-call" target="_blank" rel="noopener noreferrer">
+    <Button
+      size="lg"
+      className="bg-white text-blue-600 hover:bg-gray-100 font-bold px-8 py-4 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+    >
+      Book a Free 15-min Strategy Call
+      <ArrowRight className="ml-2 w-5 h-5" />
+    </Button>
+  </a>
+</div>
+
 
               <div className="flex justify-center space-x-8 pt-4">
                 <div className="flex items-center space-x-2 opacity-90">
