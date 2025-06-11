@@ -4,7 +4,6 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
-import { useRouter } from "next/navigation"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -34,13 +33,10 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  toBookCall?: boolean
-}
+    VariantProps<typeof buttonVariants> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, toBookCall = false, ...props }, ref) => {
-    const router = useRouter()
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? "a" : "button"
     const [cursorTheme, setCursorTheme] = useState<string | null>(null)
     const [isSystemCursor, setIsSystemCursor] = useState(false)
@@ -94,15 +90,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         data-cursor-hover={cursorTheme !== "system"}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={
-          toBookCall
-            ? (e) => {
-                e.preventDefault()
-                router.push("/book-call")
-                if (props.onClick) props.onClick(e)
-              }
-            : props.onClick
-        }
         {...props}
       />
     )

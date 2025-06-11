@@ -15,8 +15,20 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      setVisible(currentScrollY < lastScrollY)
+
+      // Determine if we're scrolling up or down
+      if (currentScrollY > lastScrollY) {
+        // Scrolling down
+        setVisible(false)
+      } else {
+        // Scrolling up
+        setVisible(true)
+      }
+
+      // Update background opacity based on scroll position
       setScrolled(currentScrollY > 20)
+
+      // Update last scroll position
       setLastScrollY(currentScrollY)
     }
 
@@ -27,169 +39,288 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-4 left-1/2 z-50 w-[95%] max-w-7xl -translate-x-1/2 rounded-lg px-6 py-3 border border-white/20 dark:border-gray-700/50 shadow-lg backdrop-blur-lg transition-all duration-300 ${
-          scrolled ? "bg-white/30 dark:bg-gray-900/30" : "bg-white/20 dark:bg-gray-900/20"
+        className={`fixed top-4 left-1/2 z-50 w-[95%] max-w-7xl -translate-x-1/2 rounded-full px-6 py-3 border border-white/20 dark:border-white/20 shadow-lg backdrop-blur-lg transition-all duration-300 ${
+          scrolled ? "bg-white/30 dark:bg-black/30" : "bg-white/20 dark:bg-black/20"
         } ${visible ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div className="flex w-full items-center justify-between">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="font-semibold text-sm text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors"
-          >
-            Ash Agency
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="text-sm font-medium mr-4">Ash Agency</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-6 text-sm font-medium">
-            <Link
-              href="/"
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors"
-            >
-              Welcome
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden ml-auto flex items-center justify-center p-2 rounded-md text-primary hover:bg-primary/10 transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+
+          {/* Desktop navigation */}
+          <nav className="hidden md:flex flex-1 items-center space-x-6 text-sm font-medium">
+            <Link href="/" className="relative transition-colors hover:text-primary">
+              <span className="relative z-10">Welcome</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
-            <Link
-              href="/our-story"
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors"
-            >
-              Our Story
+
+            <Link href="/our-story" className="relative transition-colors hover:text-primary">
+              <span className="relative z-10">Our Story</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
 
             <div className="relative group">
-              <button className="flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors">
-                <span>Solutions</span>
+              <button className="flex items-center space-x-1 relative transition-colors hover:text-primary">
+                <span className="relative z-10">Solutions</span>
                 <svg
-                  className="h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  viewBox="0 0 24 24"
+                  className="h-4 w-4"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
-              <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white/90 dark:bg-gray-900/90 border border-white/20 dark:border-gray-700/50 backdrop-blur-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                <div className="py-1 text-sm">
+              <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-background border border-border/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <div className="py-1">
                   <Link
                     href="/solutions/selector"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 hover:text-primary dark:hover:text-primary transition-colors"
+                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground font-medium text-primary"
                   >
                     Find Your Solution
                   </Link>
-                  
+                  <div className="h-px bg-border/50 my-1 mx-2"></div>
+                  <Link
+                    href="/solutions/agencies-brands"
+                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                  >
+                    For Agencies & Brands
+                  </Link>
+                  <Link
+                    href="/solutions/creators"
+                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                  >
+                    For Creators
+                  </Link>
+                  <Link
+                    href="/solutions/entrepreneurs"
+                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                  >
+                    For Entrepreneurs
+                  </Link>
                 </div>
               </div>
             </div>
 
-            <Link
-              href="/portfolio"
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors"
-            >
-              Portfolio
-            </Link>
-            <Link
-              href="/pricing"
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors"
-            >
-              Pricing
+            <div className="relative group">
+              <button className="flex items-center space-x-1 relative transition-colors hover:text-primary">
+                <span className="relative z-10">Portfolio</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+              <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-background border border-border/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                <div className="py-1">
+                  <Link
+                    href="/portfolio/short-video"
+                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                  >
+                    Short Video
+                  </Link>
+                  <Link
+                    href="/portfolio/long-video"
+                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                  >
+                    Long Video
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <Link href="/pricing" className="relative transition-colors hover:text-primary">
+              <span className="relative z-10">Pricing</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
           </nav>
 
-          {/* Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             <Link href="/book-call">
-              <Button size="sm" className="hover:shadow-xl hover:scale-105 transition-transform">
+              <Button
+                size="sm"
+                className="transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:scale-105"
+              >
                 Get a Quote
               </Button>
             </Link>
           </div>
-
-          {/* Mobile menu toggle */}
-          <button
-            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100/20 dark:hover:bg-gray-800/20 transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
         </div>
       </header>
 
-      {/* Mobile Slide Menu */}
+      {/* Mobile side panel */}
       <div
-        className={`fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-background shadow-xl transform transition-transform duration-300 ease-in-out ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex flex-col h-full p-6">
-          <div className="flex justify-between items-center mb-6">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="font-semibold text-gray-900 dark:text-white"
-            >
+        <div className="flex flex-col h-full p-6 overflow-y-auto">
+          <div className="flex items-center justify-between mb-8">
+            <Link href="/" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
               Ash Agency
             </Link>
             <button
+              className="p-2 rounded-md text-primary hover:bg-primary/10 transition-colors"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors"
             >
               <X className="h-6 w-6" />
             </button>
           </div>
 
-          <nav className="flex flex-col space-y-4 text-base font-medium">
+          <nav className="flex flex-col space-y-6 text-base font-medium">
             <Link
               href="/"
+              className="py-2 border-b border-border/20 hover:text-primary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors py-2 border-b border-gray-200/20 dark:border-gray-700/20"
             >
               Welcome
             </Link>
+
             <Link
               href="/our-story"
+              className="py-2 border-b border-border/20 hover:text-primary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors py-2 border-b border-gray-200/20 dark:border-gray-700/20"
             >
               Our Story
             </Link>
-            <Link
-              href="/solutions/selector"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors py-2 border-b border-gray-200/20 dark:border-gray-700/20"
-            >
-              Solutions
-            </Link>
-            <Link
-              href="/portfolio"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors py-2 border-b border-gray-200/20 dark:border-gray-700/20"
-            >
-              Portfolio
-            </Link>
+
+            <div className="py-2 border-b border-border/20">
+              <details className="group">
+                <summary className="flex justify-between items-center cursor-pointer list-none hover:text-primary transition-colors">
+                  Solutions
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4 transition-transform group-open:rotate-180"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <div className="mt-2 ml-4 flex flex-col space-y-2">
+                  <Link
+                    href="/solutions/selector"
+                    className="py-2 text-primary font-medium hover:text-primary transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Find Your Solution
+                  </Link>
+                  <div className="h-px bg-border/30 my-1"></div>
+                  <Link
+                    href="/solutions/agencies-brands"
+                    className="py-2 hover:text-primary transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    For Agencies & Brands
+                  </Link>
+                  <Link
+                    href="/solutions/creators"
+                    className="py-2 hover:text-primary transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    For Creators
+                  </Link>
+                  <Link
+                    href="/solutions/entrepreneurs"
+                    className="py-2 hover:text-primary transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    For Entrepreneurs
+                  </Link>
+                </div>
+              </details>
+            </div>
+
+            <div className="py-2 border-b border-border/20">
+              <details className="group">
+                <summary className="flex justify-between items-center cursor-pointer list-none hover:text-primary transition-colors">
+                  Portfolio
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4 transition-transform group-open:rotate-180"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <div className="mt-2 ml-4 flex flex-col space-y-2">
+                  <Link
+                    href="/portfolio/short-video"
+                    className="py-2 hover:text-primary transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Short Video
+                  </Link>
+                  <Link
+                    href="/portfolio/long-video"
+                    className="py-2 hover:text-primary transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Long Video
+                  </Link>
+                </div>
+              </details>
+            </div>
+
             <Link
               href="/pricing"
+              className="py-2 border-b border-border/20 hover:text-primary transition-colors"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-gray-700 dark:text-gray-200 hover:text-primary dark:hover:text-primary transition-colors py-2 border-b border-gray-200/20 dark:border-gray-700/20"
             >
               Pricing
             </Link>
           </nav>
 
-          <div className="mt-auto pt-6 space-y-4">
+          <div className="mt-auto pt-6">
             <Link href="/book-call" onClick={() => setMobileMenuOpen(false)}>
-              <Button className="w-full">Get a Quote</Button>
+              <Button className="w-full transition-all duration-300">Get a Quote</Button>
             </Link>
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-4">
               <ThemeToggle />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Backdrop */}
+      {/* Backdrop for mobile menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setMobileMenuOpen(false)} />
       )}
