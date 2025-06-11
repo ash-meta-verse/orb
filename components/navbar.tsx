@@ -117,41 +117,10 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="relative group">
-              <button className="flex items-center space-x-1 relative transition-colors hover:text-primary">
-                <span className="relative z-10">Portfolio</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-              <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-background border border-border/40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                <div className="py-1">
-                  <Link
-                    href="/portfolio/short-video"
-                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                  >
-                    Short Video
-                  </Link>
-                  <Link
-                    href="/portfolio/long-video"
-                    className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                  >
-                    Long Video
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <Link href="/portfolio" className="relative transition-colors hover:text-primary">
+              <span className="relative z-10">Portfolio</span>
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+            </Link>
 
             <Link href="/pricing" className="relative transition-colors hover:text-primary">
               <span className="relative z-10">Pricing</span>
@@ -262,43 +231,13 @@ export default function Navbar() {
               </details>
             </div>
 
-            <div className="py-2 border-b border-border/20">
-              <details className="group">
-                <summary className="flex justify-between items-center cursor-pointer list-none hover:text-primary transition-colors">
-                  Portfolio
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-4 w-4 transition-transform group-open:rotate-180"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </summary>
-                <div className="mt-2 ml-4 flex flex-col space-y-2">
-                  <Link
-                    href="/portfolio/short-video"
-                    className="py-2 hover:text-primary transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Short Video
-                  </Link>
-                  <Link
-                    href="/portfolio/long-video"
-                    className="py-2 hover:text-primary transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Long Video
-                  </Link>
-                </div>
-              </details>
-            </div>
+            <Link
+              href="/portfolio"
+              className="py-2 border-b border-border/20 hover:text-primary transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Portfolio
+            </Link>
 
             <Link
               href="/pricing"

@@ -15,8 +15,8 @@ export default function PricingPage() {
             </span>
           </h1>
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Premium video production packages designed to deliver exceptional quality and measurable results for your
-            business.
+            Premium content creation and advertising packages designed to build your brand and drive measurable results
+            for your business.
           </p>
         </div>
       </section>
@@ -36,53 +36,51 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: "Starter",
-                description: "Perfect for businesses just beginning to leverage video in their marketing strategy.",
-                price: "$2,500",
-                monthlyPrice: "$1,500",
+                name: "Starter Plan",
+                tagline: "Establish Your Brand",
+                description: "Ideal for new businesses and consultants aiming to build a consistent online presence.",
+                price: "$500",
+                monthlyPrice: "$350",
                 features: [
-                  "1 premium video per month",
-                  "Up to 90 seconds in length",
-                  "3 social media edits",
-                  "Basic SEO optimization",
-                  "1 revision round",
-                  "Delivery within 2 weeks",
+                  "8 social media posts (carousel, quote, and value formats)",
+                  "2 short-form videos (≤ 30 sec)",
+                  "1 advertising creative setup",
+                  "Caption writing and hashtag research",
+                  "1 round of revisions",
+                  "Delivery: Within 10 business days",
                 ],
               },
               {
-                name: "Professional",
+                name: "Growth Plan",
+                tagline: "Drive Visibility & Leads",
                 description:
-                  "Comprehensive package for businesses ready to fully integrate video into their marketing.",
-                price: "$5,000",
-                monthlyPrice: "$3,500",
+                  "Recommended for growing service brands aiming to combine content and advertising for lead generation.",
+                price: "$950",
+                monthlyPrice: "$750",
                 features: [
-                  "2 premium videos per month",
-                  "Up to 3 minutes in length",
-                  "5 social media edits",
-                  "Advanced SEO optimization",
-                  "2 revision rounds",
-                  "Delivery within 10 days",
-                  "Monthly strategy session",
-                  "Performance analytics",
+                  "12 content pieces (visuals, carousels, reels, stories)",
+                  "4 branded short-form videos",
+                  "2 ad campaigns (setup & creative)",
+                  "Monthly content planning session",
+                  "2 rounds of revisions",
+                  "Delivery: Within 7 business days",
                 ],
                 highlighted: true,
               },
               {
-                name: "Enterprise",
-                description: "All-inclusive package for businesses with extensive video content needs.",
-                price: "$10,000+",
-                monthlyPrice: "$7,500+",
+                name: "Scale Plan",
+                tagline: "Full-Funnel Growth Execution",
+                description: "Tailored for established businesses scaling their inbound marketing and ad reach.",
+                price: "Custom",
+                monthlyPrice: "$1,200+",
                 features: [
-                  "4+ premium videos per month",
-                  "Custom video lengths",
-                  "10+ social media edits",
-                  "Comprehensive SEO strategy",
-                  "Unlimited revision rounds",
-                  "Priority delivery timeline",
-                  "Dedicated account manager",
-                  "Quarterly strategy planning",
-                  "Advanced performance analytics",
-                  "Custom distribution strategy",
+                  "20+ content pieces/month",
+                  "6–8 edited short-form videos",
+                  "4 paid media creatives with A/B testing",
+                  "Strategic performance reporting",
+                  "Priority communication",
+                  "Dedicated content manager",
+                  "Delivery: Within 5 business days",
                 ],
               },
             ].map((tier, index) => (
@@ -95,7 +93,8 @@ export default function PricingPage() {
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
+                <h3 className="text-2xl font-bold mb-1">{tier.name}</h3>
+                <p className="text-primary font-medium mb-3">{tier.tagline}</p>
                 <p className="text-muted-foreground mb-6">{tier.description}</p>
 
                 <div className="mb-6">
@@ -103,7 +102,9 @@ export default function PricingPage() {
                     {tier.monthlyPrice}
                     <span className="text-sm font-normal text-muted-foreground">/month</span>
                   </p>
-                  <p className="text-sm text-muted-foreground">or {tier.price} one-time payment</p>
+                  <p className="text-sm text-muted-foreground">
+                    or {tier.price} {tier.price === "Custom" ? "(based on scope)" : "one-time payment"}
+                  </p>
                 </div>
 
                 <h4 className="font-semibold mb-3">What's included:</h4>
@@ -155,7 +156,7 @@ export default function PricingPage() {
               {
                 audience: "Agencies & Brands",
                 description:
-                  "Scalable video production solutions that integrate with your existing marketing strategies.",
+                  "Scalable content creation solutions that integrate with your existing marketing strategies.",
                 features: [
                   "White-label production services",
                   "Multi-project discounts",
@@ -167,7 +168,7 @@ export default function PricingPage() {
               },
               {
                 audience: "Content Creators",
-                description: "Consistent, high-quality video content to grow your platform and engage your audience.",
+                description: "Consistent, high-quality content to grow your platform and engage your audience.",
                 features: [
                   "Platform-optimized content",
                   "Growth-focused strategy",
@@ -179,7 +180,7 @@ export default function PricingPage() {
               },
               {
                 audience: "Entrepreneurs",
-                description: "Cost-effective video solutions to build your brand and drive business growth.",
+                description: "Cost-effective content solutions to build your brand and drive business growth.",
                 features: [
                   "ROI-focused content",
                   "Lead generation optimization",
@@ -236,9 +237,9 @@ export default function PricingPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
-              title: "Professional Production",
+              title: "Professional Content Creation",
               description:
-                "High-quality video production with professional equipment, experienced crew, and cinematic techniques.",
+                "High-quality content creation with professional tools, experienced creators, and modern techniques.",
             },
             {
               title: "Strategic Approach",
@@ -248,12 +249,11 @@ export default function PricingPage() {
             {
               title: "Creative Direction",
               description:
-                "Expert creative guidance to ensure your videos stand out and effectively communicate your message.",
+                "Expert creative guidance to ensure your content stands out and effectively communicates your message.",
             },
             {
               title: "Post-Production Excellence",
-              description:
-                "Professional editing, color grading, sound design, and motion graphics to elevate your content.",
+              description: "Professional editing, color grading, sound design, and graphics to elevate your content.",
             },
             {
               title: "Platform Optimization",
@@ -292,7 +292,7 @@ export default function PricingPage() {
               {
                 question: "Why should I choose a monthly package instead of one-time production?",
                 answer:
-                  "Monthly packages offer several advantages: consistent content delivery, cost savings compared to individual productions, ongoing strategy refinement, and the ability to build a cohesive video library over time. They're ideal for businesses committed to making video a core part of their marketing strategy.",
+                  "Monthly packages offer several advantages: consistent content delivery, cost savings compared to individual productions, ongoing strategy refinement, and the ability to build a cohesive content library over time. They're ideal for businesses committed to making content a core part of their marketing strategy.",
               },
               {
                 question: "What happens if I need to make changes after the revision rounds?",
@@ -349,11 +349,11 @@ export default function PricingPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-xl opacity-90 max-w-2xl mx-auto mb-8">
-            Schedule a consultation to discuss your video production needs and find the perfect package for your
+            Schedule a consultation to discuss your content creation needs and find the perfect package for your
             business.
           </p>
           <Link href="/book-call">
-            <Button size="lg" variant="secondary" className="group">
+            <Button size="lg" variant="secondary" className="group" toBookCall>
               Schedule a Consultation
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Button>
