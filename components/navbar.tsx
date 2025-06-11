@@ -42,8 +42,6 @@ export default function Navbar() {
   className={`fixed top-4 left-1/2 z-50 w-[95%] max-w-7xl -translate-x-1/2 rounded-full px-6 py-3 transition-all duration-300 border border-white/30 backdrop-blur-md shadow-md ${
     scrolled ? "bg-white/70 shadow-lg" : "bg-white/40"
   } ${visible ? "translate-y-0" : "-translate-y-full"}`}
->
-
       >
         <div className="container flex h-14 max-w-screen-2xl items-center">
           <Link href="/" className="flex items-center space-x-2">
