@@ -230,49 +230,56 @@ export default function Portfolio() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-700">
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <div className="space-y-8">
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <span className="text-4xl">📞</span>
-              <h2 className="text-4xl font-bold">Let's Work Together</h2>
-            </div>
+        <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-700">
+      <div className="max-w-4xl mx-auto text-center text-white">
+        <div className="space-y-8">
+          {/* Header */}
+          <div className="flex items-center justify-center space-x-2 mb-4">
+            <span className="text-4xl">📞</span>
+            <h2 className="text-4xl font-bold">Let's Work Together</h2>
+          </div>
 
-            <div className="space-y-4">
-              <p className="text-xl">
-                I currently have{" "}
-                <span className="font-bold bg-white bg-opacity-20 px-3 py-1 rounded-full">2 client slots</span> open.
-              </p>
-              <p className="text-lg opacity-90">Ready to grow your brand?</p>
-            </div>
+          {/* Text Content */}
+          <div className="space-y-4">
+            <p className="text-xl">
+              I currently have{" "}
+              <span className="font-bold bg-white/20 px-3 py-1 rounded-full">
+                2 client slots
+              </span>{" "}
+              open.
+            </p>
+            <p className="text-lg opacity-90">Ready to grow your brand?</p>
+          </div>
 
+          {/* CTA Button */}
           <div className="space-y-6">
-  <a href="https://ash-agency.com/book-call" target="_blank" rel="noopener noreferrer">
-    <Button
-      size="lg"
-      className="bg-white text-blue-600 hover:bg-gray-100 font-bold px-8 py-4 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-    >
-      Book a Free 15-min Strategy Call
-      <ArrowRight className="ml-2 w-5 h-5" />
-    </Button>
-  </a>
-</div>
+            <a
+              href="https://ash-agency.com/book-call"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-gray-100 font-bold px-8 py-4 text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              >
+                Book a Free 15-min Strategy Call
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </a>
+          </div>
 
-
-              <div className="flex justify-center space-x-8 pt-4">
-                <div className="flex items-center space-x-2 opacity-90">
-                  <Mail className="w-5 h-5" />
-                  <span>hello@ash-agency.com</span>
-                </div>
-                <div className="flex items-center space-x-2 opacity-90">
-                  <Instagram className="w-5 h-5" />
-                  <span>@ash.agency</span>
-                </div>
-              </div>
+          {/* Contact Info */}
+          <div className="flex justify-center space-x-8 pt-6">
+            <div className="flex items-center space-x-2 opacity-90">
+              <Mail className="w-5 h-5" />
+              <span>hello@ash-agency.com</span>
+            </div>
+            <div className="flex items-center space-x-2 opacity-90">
+              <Instagram className="w-5 h-5" />
+              <span>@ash.agency</span>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
   )
 }
