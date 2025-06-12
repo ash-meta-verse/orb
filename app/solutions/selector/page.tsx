@@ -25,9 +25,9 @@ export default function SolutionsSelectorPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-black text-black dark:text-white relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-black text-black dark:text-white relative overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200 dark:from-black dark:via-black dark:to-gray-900 z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-gray-100 to-white dark:from-black dark:via-black dark:to-gray-900 z-0"></div>
 
       {/* Animated dots/particles */}
       <div className="absolute inset-0 z-0 opacity-20">
@@ -71,7 +71,7 @@ export default function SolutionsSelectorPage() {
                 >
                   <button
                     onClick={() => handleSolutionClick("/solutions/agencies-brands")}
-                    className="w-full p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900 hover:border-primary/50 transition-all duration-300 group"
+                    className="w-full p-4 bg-white/80 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg flex items-center justify-between hover:bg-white dark:hover:bg-gray-900 hover:border-primary/50 transition-all duration-300 group shadow-sm"
                   >
                     <div className="flex items-center">
                       <div className="p-2 bg-primary/10 dark:bg-primary/10 rounded-full mr-3">
@@ -90,7 +90,7 @@ export default function SolutionsSelectorPage() {
                 >
                   <button
                     onClick={() => handleSolutionClick("/solutions/creators")}
-                    className="w-full p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900 hover:border-primary/50 transition-all duration-300 group"
+                    className="w-full p-4 bg-white/80 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg flex items-center justify-between hover:bg-white dark:hover:bg-gray-900 hover:border-primary/50 transition-all duration-300 group shadow-sm"
                   >
                     <div className="flex items-center">
                       <div className="p-2 bg-primary/10 dark:bg-primary/10 rounded-full mr-3">
@@ -109,7 +109,7 @@ export default function SolutionsSelectorPage() {
                 >
                   <button
                     onClick={() => handleSolutionClick("/solutions/entrepreneurs")}
-                    className="w-full p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900 hover:border-primary/50 transition-all duration-300 group"
+                    className="w-full p-4 bg-white/80 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-lg flex items-center justify-between hover:bg-white dark:hover:bg-gray-900 hover:border-primary/50 transition-all duration-300 group shadow-sm"
                   >
                     <div className="flex items-center">
                       <div className="p-2 bg-primary/10 dark:bg-primary/10 rounded-full mr-3">

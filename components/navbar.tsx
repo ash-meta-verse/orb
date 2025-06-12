@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import ThemeToggle from "@/components/theme-toggle"
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -39,25 +40,37 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-4 left-1/2 z-50 w-[95%] max-w-7xl -translate-x-1/2 rounded-full px-6 py-3 border border-white/20 dark:border-white/20 shadow-lg backdrop-blur-lg transition-all duration-300 ${
+        className={`fixed top-4 left-1/2 z-50 w-[95%] max-w-7xl -translate-x-1/2 rounded-xl px-6 py-3 border border-white/20 dark:border-white/20 shadow-lg backdrop-blur-lg transition-all duration-300 ${
           scrolled ? "bg-white/30 dark:bg-black/30" : "bg-white/20 dark:bg-black/20"
         } ${visible ? "translate-y-0" : "-translate-y-full"}`}
       >
         <div className="flex w-full items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-sm font-medium mr-4">Ash Agency</span>
-          </Link>
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
+              {/* Light mode logo */}
+              <Image
+                src="/images/ash-agency-logo-light.png"
+                alt="Ash Agency"
+                width={180}
+                height={40}
+                className="h-8 w-auto dark:hidden"
+                priority
+              />
+              {/* Dark mode logo */}
+              <Image
+                src="/images/ash-agency-logo-dark.png"
+                alt="Ash Agency"
+                width={180}
+                height={40}
+                className="h-8 w-auto hidden dark:block"
+                priority
+              />
+            </Link>
+          </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden ml-auto flex items-center justify-center p-2 rounded-md text-primary hover:bg-primary/10 transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-
-          {/* Desktop navigation */}
-          <nav className="hidden md:flex flex-1 items-center space-x-6 text-sm font-medium">
+          {/* Desktop navigation - Centered */}
+          <nav className="hidden md:flex items-center justify-center space-x-6 text-sm font-medium absolute left-1/2 transform -translate-x-1/2">
             <Link href="/" className="relative transition-colors hover:text-primary">
               <span className="relative z-10">Welcome</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
@@ -159,6 +172,7 @@ export default function Navbar() {
             </Link>
           </nav>
 
+          {/* Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             <Link href="/book-call">
@@ -170,6 +184,14 @@ export default function Navbar() {
               </Button>
             </Link>
           </div>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden ml-auto flex items-center justify-center p-2 rounded-md text-primary hover:bg-primary/10 transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </header>
 
@@ -181,8 +203,23 @@ export default function Navbar() {
       >
         <div className="flex flex-col h-full p-6 overflow-y-auto">
           <div className="flex items-center justify-between mb-8">
-            <Link href="/" className="text-sm font-medium" onClick={() => setMobileMenuOpen(false)}>
-              Ash Agency
+            <Link href="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+              {/* Light mode logo for mobile */}
+              <Image
+                src="/images/ash-agency-logo-light.png"
+                alt="Ash Agency"
+                width={140}
+                height={32}
+                className="h-6 w-auto dark:hidden"
+              />
+              {/* Dark mode logo for mobile */}
+              <Image
+                src="/images/ash-agency-logo-dark.png"
+                alt="Ash Agency"
+                width={140}
+                height={32}
+                className="h-6 w-auto hidden dark:block"
+              />
             </Link>
             <button
               className="p-2 rounded-md text-primary hover:bg-primary/10 transition-colors"

@@ -78,7 +78,7 @@ export default function HomePage() {
               Premium video production and social media management tailored for creators, agencies, and entrepreneurs.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href="/solutions/agencies-brands">
+              <Link href="/solutions/selector">
                 <Button size="lg" className="group">
                   Explore Solutions
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
