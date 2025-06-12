@@ -1,8 +1,67 @@
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Check, HelpCircle } from "lucide-react"
 
 export default function PricingPage() {
+  const [isMonthly, setIsMonthly] = useState(true)
+
+  // Calculate annual price (monthly × 12 months × 0.9 for 10% discount)
+  const calculateAnnualPrice = (monthlyPrice: string) => {
+    const numericPrice = Number.parseFloat(monthlyPrice.replace(/[^0-9.]/g, ""))
+    if (isNaN(numericPrice)) return monthlyPrice
+
+    // For prices with "+" sign, keep the plus
+    const hasPlus = monthlyPrice.includes("+")
+    const annualPrice = Math.round(numericPrice * 12 * 0.9)
+    return `$${annualPrice}${hasPlus ? "+" : ""}`
+  }
+
+  const pricingTiers = [
+    {
+      name: "Starter Plan",
+      description: "Perfect for new creators and businesses needing consistent, quality content.",
+      monthlyPrice: "$350",
+      features: [
+        "8 Social media posts (carousel, quote, reels cover)",
+        "2 Short-form videos (up to 30 seconds)",
+        "1 Ad creative setup",
+        "Caption copywriting + Hashtag set",
+        "1 revision round",
+        "Delivery within 10 days",
+      ],
+    },
+    {
+      name: "Growth Plan",
+      description: "For brands ready to scale their reach and convert leads through content + ads.",
+      monthlyPrice: "$750",
+      features: [
+        "12 Content pieces (mix of carousels, reels, stories)",
+        "4 Short-form videos (branded)",
+        "2 Ad creatives + campaign setup",
+        "Strategy call (30 min/month)",
+        "2 revision rounds",
+        "Delivery within 7 days",
+      ],
+      highlighted: true,
+    },
+    {
+      name: "Scale Plan",
+      description: "For serious brands needing hands-free social & ad growth.",
+      monthlyPrice: "$1,200+",
+      features: [
+        "20+ content pieces/month (planned calendar)",
+        "6–8 Reels or TikToks with editing",
+        "4 Ads with A/B testing",
+        "Monthly reporting + dashboard",
+        "Priority support",
+        "Delivery within 5 days",
+      ],
+    },
+  ]
+
   return (
     <main className="min-h-screen pt-20">
       {/* Hero Section */}
@@ -15,8 +74,8 @@ export default function PricingPage() {
             </span>
           </h1>
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Premium video production packages designed to deliver exceptional quality and measurable results for your
-            business.
+            Social media marketing packages designed to build your brand, attract your audience, and drive measurable
+            growth.
           </p>
         </div>
       </section>
@@ -25,67 +84,44 @@ export default function PricingPage() {
       <section className="container mx-auto px-4 py-8">
         <div className="max-w-5xl mx-auto">
           <div className="flex justify-center items-center mb-12">
-            <span className="text-lg font-medium mr-4">Monthly</span>
-            <div className="relative inline-block w-16 h-8 rounded-full bg-primary/20">
-              <div className="absolute left-1 top-1 w-6 h-6 rounded-full bg-primary transition-transform"></div>
+            <span
+              className={`text-lg font-medium mr-4 cursor-pointer transition-colors duration-300 ${
+                isMonthly ? "text-primary font-bold" : "text-muted-foreground"
+              }`}
+              onClick={() => setIsMonthly(true)}
+            >
+              Monthly
+            </span>
+            <div
+              className="relative inline-block w-16 h-8 rounded-full bg-primary/20 cursor-pointer"
+              onClick={() => setIsMonthly(!isMonthly)}
+            >
+              <div
+                className={`absolute top-1 w-6 h-6 rounded-full bg-primary transition-transform duration-300 ${
+                  isMonthly ? "left-1" : "left-9"
+                }`}
+              ></div>
             </div>
-            <span className="text-lg font-medium ml-4">One-time</span>
+            <span
+              className={`text-lg font-medium ml-4 cursor-pointer transition-colors duration-300 ${
+                !isMonthly ? "text-primary font-bold" : "text-muted-foreground"
+              }`}
+              onClick={() => setIsMonthly(false)}
+            >
+              Annual{" "}
+              <span
+                className={`text-xs font-medium transition-colors duration-300 ${
+                  !isMonthly ? "text-primary bg-primary/10 px-2 py-1 rounded-full" : "text-primary"
+                }`}
+              >
+                Save 10%
+              </span>
+            </span>
           </div>
 
           {/* Pricing Tiers */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Starter",
-                description: "Perfect for businesses just beginning to leverage video in their marketing strategy.",
-                price: "$2,500",
-                monthlyPrice: "$1,500",
-                features: [
-                  "1 premium video per month",
-                  "Up to 90 seconds in length",
-                  "3 social media edits",
-                  "Basic SEO optimization",
-                  "1 revision round",
-                  "Delivery within 2 weeks",
-                ],
-              },
-              {
-                name: "Professional",
-                description:
-                  "Comprehensive package for businesses ready to fully integrate video into their marketing.",
-                price: "$5,000",
-                monthlyPrice: "$3,500",
-                features: [
-                  "2 premium videos per month",
-                  "Up to 3 minutes in length",
-                  "5 social media edits",
-                  "Advanced SEO optimization",
-                  "2 revision rounds",
-                  "Delivery within 10 days",
-                  "Monthly strategy session",
-                  "Performance analytics",
-                ],
-                highlighted: true,
-              },
-              {
-                name: "Enterprise",
-                description: "All-inclusive package for businesses with extensive video content needs.",
-                price: "$10,000+",
-                monthlyPrice: "$7,500+",
-                features: [
-                  "4+ premium videos per month",
-                  "Custom video lengths",
-                  "10+ social media edits",
-                  "Comprehensive SEO strategy",
-                  "Unlimited revision rounds",
-                  "Priority delivery timeline",
-                  "Dedicated account manager",
-                  "Quarterly strategy planning",
-                  "Advanced performance analytics",
-                  "Custom distribution strategy",
-                ],
-              },
-            ].map((tier, index) => (
+            {pricingTiers.map((tier, index) => (
               <div
                 key={index}
                 className={`bg-background p-8 rounded-lg border ${tier.highlighted ? "border-primary shadow-lg" : "border-border/50"} transition-shadow duration-300 hover:shadow-md relative`}
@@ -100,10 +136,14 @@ export default function PricingPage() {
 
                 <div className="mb-6">
                   <p className="text-3xl font-bold">
-                    {tier.monthlyPrice}
-                    <span className="text-sm font-normal text-muted-foreground">/month</span>
+                    {isMonthly ? tier.monthlyPrice : calculateAnnualPrice(tier.monthlyPrice)}
+                    <span className="text-sm font-normal text-muted-foreground">{isMonthly ? "/month" : "/year"}</span>
                   </p>
-                  <p className="text-sm text-muted-foreground">or {tier.price} one-time payment</p>
+                  {isMonthly ? (
+                    <p className="text-sm text-primary">Switch to annual for 10% savings</p>
+                  ) : (
+                    <p className="text-sm text-primary">You save 10% with annual billing</p>
+                  )}
                 </div>
 
                 <h4 className="font-semibold mb-3">What's included:</h4>
@@ -154,11 +194,10 @@ export default function PricingPage() {
             {[
               {
                 audience: "Agencies & Brands",
-                description:
-                  "Scalable video production solutions that integrate with your existing marketing strategies.",
+                description: "Scalable social media solutions that integrate with your existing marketing strategies.",
                 features: [
-                  "White-label production services",
-                  "Multi-project discounts",
+                  "White-label content creation",
+                  "Multi-platform management",
                   "Client presentation materials",
                   "Rush delivery options",
                   "Dedicated account manager",
@@ -167,7 +206,7 @@ export default function PricingPage() {
               },
               {
                 audience: "Content Creators",
-                description: "Consistent, high-quality video content to grow your platform and engage your audience.",
+                description: "Consistent, high-quality content to grow your platform and engage your audience.",
                 features: [
                   "Platform-optimized content",
                   "Growth-focused strategy",
@@ -179,7 +218,7 @@ export default function PricingPage() {
               },
               {
                 audience: "Entrepreneurs",
-                description: "Cost-effective video solutions to build your brand and drive business growth.",
+                description: "Cost-effective social media solutions to build your brand and drive business growth.",
                 features: [
                   "ROI-focused content",
                   "Lead generation optimization",
@@ -227,7 +266,7 @@ export default function PricingPage() {
       {/* What's Included */}
       <section className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-4xl mx-auto text-center mb-16">
-          <h2 className="text-3xl font-bold mb-6">What's Included in Every Package</h2>
+          <h2 className="text-3xl font-bold mb-6">What's Included in Every Social Media Package</h2>
           <p className="text-muted-foreground text-lg">
             No matter which package you choose, you'll receive these premium services and benefits.
           </p>
@@ -236,34 +275,33 @@ export default function PricingPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
-              title: "Professional Production",
+              title: "Content Strategy & Planning",
               description:
-                "High-quality video production with professional equipment, experienced crew, and cinematic techniques.",
+                "Strategic content planning aligned with your brand goals and target audience engagement patterns.",
             },
             {
-              title: "Strategic Approach",
+              title: "Professional Design & Creation",
               description:
-                "Content aligned with your business objectives and designed to achieve specific, measurable results.",
+                "High-quality visual content creation including graphics, carousels, and short-form video content.",
             },
             {
-              title: "Creative Direction",
+              title: "Copywriting & Hashtags",
               description:
-                "Expert creative guidance to ensure your videos stand out and effectively communicate your message.",
+                "Engaging captions and strategic hashtag research to maximize your content's reach and engagement.",
             },
             {
-              title: "Post-Production Excellence",
+              title: "Ad Creative Development",
               description:
-                "Professional editing, color grading, sound design, and motion graphics to elevate your content.",
+                "Professional ad creatives designed to convert, with strategic campaign setup and optimization.",
             },
             {
-              title: "Platform Optimization",
-              description:
-                "Content optimized for the platforms where your audience engages most, ensuring maximum impact.",
+              title: "Performance Tracking",
+              description: "Regular monitoring and reporting on content performance and social media growth metrics.",
             },
             {
-              title: "Rights Management",
+              title: "Brand Consistency",
               description:
-                "Full ownership of all content created for your brand, with clear licensing for music and assets.",
+                "Consistent visual identity and messaging across all your social media platforms and content.",
             },
           ].map((item, index) => (
             <div
@@ -290,9 +328,9 @@ export default function PricingPage() {
           <div className="max-w-3xl mx-auto space-y-6">
             {[
               {
-                question: "Why should I choose a monthly package instead of one-time production?",
+                question: "Why should I choose a monthly package instead of annual billing?",
                 answer:
-                  "Monthly packages offer several advantages: consistent content delivery, cost savings compared to individual productions, ongoing strategy refinement, and the ability to build a cohesive video library over time. They're ideal for businesses committed to making video a core part of their marketing strategy.",
+                  "Monthly packages offer flexibility with a month-to-month commitment. Annual billing provides a 10% discount and is ideal for businesses committed to long-term social media growth. Choose monthly if you prefer flexibility, or annual if you want to save and are committed to consistent social media marketing.",
               },
               {
                 question: "What happens if I need to make changes after the revision rounds?",
@@ -310,9 +348,9 @@ export default function PricingPage() {
                   "Absolutely. Our packages are designed to grow with your business. You can upgrade at any time, and downgrade with 30 days' notice. We'll work with you to ensure your package aligns with your current needs and budget.",
               },
               {
-                question: "What's your payment structure for monthly packages?",
+                question: "What's your payment structure for monthly and annual packages?",
                 answer:
-                  "Monthly packages are billed at the beginning of each month. We require a 3-month minimum commitment for monthly packages to ensure we can develop a consistent strategy and production workflow.",
+                  "Monthly packages are billed at the beginning of each month. Annual packages are billed upfront for the entire year, offering a 10% discount compared to monthly billing. Both options require a minimum 3-month commitment to ensure we can develop a consistent strategy and workflow.",
               },
               {
                 question: "Do you offer rush delivery for time-sensitive projects?",
@@ -349,8 +387,7 @@ export default function PricingPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-xl opacity-90 max-w-2xl mx-auto mb-8">
-            Schedule a consultation to discuss your video production needs and find the perfect package for your
-            business.
+            Schedule a consultation to discuss your social media needs and find the perfect package for your business.
           </p>
           <Link href="/book-call">
             <Button size="lg" variant="secondary" className="group">
