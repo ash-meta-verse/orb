@@ -8,7 +8,7 @@ export default function CTA() {
           Ready to revolutionize your business?
         </h2>
         <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-          Join leading companies who trust Amane Soft to drive their digital transformation and stay ahead in the
+          Join leading companies who trust Ash Agency to drive their digital transformation and stay ahead in the
           rapidly evolving tech landscape.
         </p>
         <Button size="lg" className="mt-4">
