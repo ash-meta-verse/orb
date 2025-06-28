@@ -16,7 +16,7 @@ export function CompactFooter() {
       viewport={{ once: true }}
     >
       <div className="container flex flex-col md:flex-row items-center justify-between gap-4 md:h-16">
-        <p className="text-sm text-muted-foreground">Ash Agency - Crafting compelling visual narratives since 2023</p>
+        <p className="text-sm text-muted-foreground">Ash Agency - Crafting compelling visual narratives since 2015</p>
 
         <div className="flex items-center space-x-4">
           <SocialLink href="https://twitter.com" icon={<Twitter size={18} />} label="Twitter" />
